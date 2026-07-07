@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://yboe2mkngo4w"]
+
+[ext_resource type="Theme" uid="uid://o6govy1hbpq2" path="res://addons/vimdow/vimdow_theme.tres" id="1_gh56k"]
+[ext_resource type="Script" uid="uid://cinru25nrys1q" path="res://addons/vimdow/vimdow_editor.gd" id="1_k517p"]
+[ext_resource type="PackedScene" uid="uid://disu5t63djq7v" path="res://addons/vimdow/non_multigrid.tscn" id="3_bivy3"]
+
+[node name="VimdowEditor" type="MarginContainer" unique_id=909240016]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+mouse_filter = 0
+theme = ExtResource("1_gh56k")
+script = ExtResource("1_k517p")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1261598546]
+layout_mode = 2
+color = Color(0.161, 0.161, 0.161, 1)
+
+[node name="VimdowWindow" parent="." unique_id=664027018 instance=ExtResource("3_bivy3")]
+current_mode = {
+"attr_id": 0,
+"attr_id_lm": 0,
+"blinkoff": 0,
+"blinkon": 0,
+"blinkwait": 0,
+"cell_percentage": 0,
+"cursor_shape": "block",
+"hl_id": 0,
+"id_lm": 0,
+"mouse_shape": 0,
+"name": "normal",
+"short_name": "n"
+}
+editor_description = "Model + View for the draw rpcs from neovim"
+layout_mode = 2
+
+[node name="NeovimClient" type="NeovimClient" parent="." unique_id=1734104499]
+editor_description = "Runs and communicates with the neovim process via godot's data types"
+
+[node name="NoNeovimRunning" type="VBoxContainer" parent="." unique_id=448943085]
+visible = false
+layout_mode = 2
+
+[node name="ErrorMessageContainer" type="MarginContainer" parent="NoNeovimRunning" unique_id=1925339753]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ErrorText" type="RichTextLabel" parent="NoNeovimRunning/ErrorMessageContainer" unique_id=721684751]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "THIS IS AN ERROR MESSAGE"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="MarginContainer" parent="NoNeovimRunning" unique_id=284776577]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="RestartButton" type="Button" parent="NoNeovimRunning/ButtonContainer" unique_id=1899821518]
+layout_mode = 2
+text = "Restart Neovim"
+
+[connection signal="resized" from="VimdowWindow" to="." method="try_resize"]
+[connection signal="neovim_event" from="NeovimClient" to="." method="_on_neovim_client_neovim_event"]
+[connection signal="neovim_quit" from="NeovimClient" to="." method="quit"]
+[connection signal="neovim_request" from="NeovimClient" to="." method="_on_neovim_client_neovim_request"]
+[connection signal="pressed" from="NoNeovimRunning/ButtonContainer/RestartButton" to="." method="_on_restart_button_pressed"]

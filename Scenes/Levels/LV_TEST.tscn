@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cjbadperab41q"]
+
+[ext_resource type="PackedScene" uid="uid://cfogxd6tvh2jh" path="res://Scenes/Characters/PlayerCharacter.tscn" id="1_doero"]
+[ext_resource type="Texture2D" uid="uid://csrdp84jufc5g" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_pujw3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uf8oy"]
+albedo_texture = ExtResource("2_pujw3")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_eoubu"]
+
+[node name="LvTest" type="Node3D" unique_id=1073166183]
+
+[node name="PlayerCharacter" parent="." unique_id=483164373 instance=ExtResource("1_doero")]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=854121376]
+transform = Transform3D(40, 0, 0, 0, 0.25, 0, 0, 0, 40, 0, -1.7617626, 0)
+material_override = SubResource("StandardMaterial3D_uf8oy")
+mesh = SubResource("BoxMesh_eoubu")

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cfogxd6tvh2jh"]
+
+[ext_resource type="Script" uid="uid://benmqk7fqmiro" path="res://Scripts/Actor.gd" id="1_nu4k2"]
+[ext_resource type="Script" uid="uid://8r0o0rbdv2ma" path="res://Scripts/Components/MovementComponent.gd" id="2_2e7x2"]
+[ext_resource type="Script" uid="uid://bh47dqnbl7x1r" path="res://Scripts/Components/PlayerComponent.gd" id="3_lp3jq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eoubu"]
+
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=483164373 node_paths=PackedStringArray("init_components")]
+script = ExtResource("1_nu4k2")
+init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent")]
+
+[node name="MovementComponent" type="Node" parent="." unique_id=908188241 node_paths=PackedStringArray("character_body", "rotator")]
+script = ExtResource("2_2e7x2")
+character_body = NodePath("..")
+rotator = NodePath("..")
+metadata/_custom_type_script = "uid://8r0o0rbdv2ma"
+
+[node name="PlayerComponent" type="Node" parent="." unique_id=413047267]
+script = ExtResource("3_lp3jq")
+metadata/_custom_type_script = "uid://bh47dqnbl7x1r"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1231854503]
+shape = SubResource("CapsuleShape3D_eoubu")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1338528603]
+transform = Transform3D(0.9999195, 0.012688264, 0, -0.012688264, 0.9999195, 0, 0, 0, 1, 0, 0.5, 0)
