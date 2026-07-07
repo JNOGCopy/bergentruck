@@ -3,25 +3,43 @@
 [ext_resource type="Script" uid="uid://benmqk7fqmiro" path="res://Scripts/Actor.gd" id="1_nu4k2"]
 [ext_resource type="Script" uid="uid://8r0o0rbdv2ma" path="res://Scripts/Components/MovementComponent.gd" id="2_2e7x2"]
 [ext_resource type="Script" uid="uid://bh47dqnbl7x1r" path="res://Scripts/Components/PlayerComponent.gd" id="3_lp3jq"]
+[ext_resource type="Script" uid="uid://d4m02eyxjwjpa" path="res://Scripts/Components/GravityComponent.gd" id="4_ci7sc"]
+[ext_resource type="Script" uid="uid://dwnadmcgrru70" path="res://Scripts/Components/FPSLookComponent.gd" id="5_kkncw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eoubu"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=483164373 node_paths=PackedStringArray("init_components")]
 script = ExtResource("1_nu4k2")
-init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent")]
+init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent"), NodePath("GravityComponent")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=908188241 node_paths=PackedStringArray("character_body", "rotator")]
 script = ExtResource("2_2e7x2")
 character_body = NodePath("..")
-rotator = NodePath("..")
+rotator = NodePath("../Rotator")
 metadata/_custom_type_script = "uid://8r0o0rbdv2ma"
 
 [node name="PlayerComponent" type="Node" parent="." unique_id=413047267]
 script = ExtResource("3_lp3jq")
 metadata/_custom_type_script = "uid://bh47dqnbl7x1r"
 
+[node name="GravityComponent" type="Node" parent="." unique_id=376244647 node_paths=PackedStringArray("character_body")]
+script = ExtResource("4_ci7sc")
+character_body = NodePath("..")
+metadata/_custom_type_script = "uid://d4m02eyxjwjpa"
+
+[node name="FPSLookComponent" type="Node" parent="." unique_id=1323384982 node_paths=PackedStringArray("body_node", "neck_node")]
+script = ExtResource("5_kkncw")
+body_node = NodePath("../Rotator")
+neck_node = NodePath("../Rotator/Neck/Head")
+metadata/_custom_type_script = "uid://dwnadmcgrru70"
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1231854503]
 shape = SubResource("CapsuleShape3D_eoubu")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1338528603]
-transform = Transform3D(0.9999195, 0.012688264, 0, -0.012688264, 0.9999195, 0, 0, 0, 1, 0, 0.5, 0)
+[node name="Rotator" type="Node3D" parent="." unique_id=1534833963]
+
+[node name="Neck" type="Node3D" parent="Rotator" unique_id=1323697734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Head" type="Camera3D" parent="Rotator/Neck" unique_id=1338528603]
+transform = Transform3D(0.99991953, 0.012688265, 0, -0.012688265, 0.99991953, 0, 0, 0, 1, 0, 0, 0)

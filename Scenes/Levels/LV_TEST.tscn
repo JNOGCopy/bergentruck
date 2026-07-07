@@ -17,4 +17,5 @@ uv1_world_triplanar = true
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=854121376]
 transform = Transform3D(40, 0, 0, 0, 0.25, 0, 0, 0, 40, 0, -1.7617626, 0)
 material_override = SubResource("StandardMaterial3D_uf8oy")
+use_collision = true
 mesh = SubResource("BoxMesh_eoubu")
