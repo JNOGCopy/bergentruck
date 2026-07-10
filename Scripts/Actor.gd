@@ -37,22 +37,14 @@ func _physics_process(delta: float) -> void:
 		i.physics_update(delta)
 
 func get_component(type: String) -> BaseComponent:
-	var component_type_list: Array = components_dictionary.get(type, null)
-	
-	if not component_type_list: return null
-	if component_type_list.size() <= 0: return null
-	
-	var component_type_result: BaseComponent = component_type_list.back()
-	
-	if component_type_result: return component_type_result
+	if components_dictionary.has(type): 
+		var component_type_list: Array = components_dictionary.get(type)
+		if component_type_list.size() > 0: return component_type_list.back()
 	
 	for i in components_list: if i.is_class(type): return i
 	return null
 
 func get_all_components(type: String) -> Array[BaseComponent]:
-	var component_type_list: Array = components_dictionary.get(type, null)
-	if not component_type_list: return component_type_list
-	
 	var output: Array[BaseComponent] = []
 	for i in components_list: if i.is_class(type): output.append(i)
 	
@@ -62,7 +54,7 @@ func add_component(component: BaseComponent) -> void:
 	if not component.try_set_actor_owner(self): return
 	components_list.append(component)
 	
-	if !components_dictionary.has(component.get_component_type()):
+	if not components_dictionary.has(component.get_component_type()):
 		components_dictionary[component.get_component_type()] = []
 	
 	var component_type_list: Array = components_dictionary.get(component.get_component_type())

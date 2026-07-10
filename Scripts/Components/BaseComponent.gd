@@ -23,4 +23,4 @@ func get_destroyed() -> void:
 	pass
 
 static func get_component_type() -> String:
-	return "base"
+	return "BaseComponent"

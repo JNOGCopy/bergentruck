@@ -14,7 +14,6 @@ func physics_update(delta: float) -> void:
 	var velocity = lerp(current_movement_velocity, rotator.basis * Vector3(current_movement_input.x, 0, current_movement_input.y) * speed, delta * acceleration)
 	character_body.velocity = velocity
 	character_body.move_and_slide()
-	print(velocity)
 	current_movement_input = Vector2.ZERO
 	current_movement_velocity = velocity
 

@@ -8,10 +8,12 @@ extends BaseComponent
 var roll_angle: float
 
 func look(input: Vector2):
-	var look_input = input.normalized() * sensitivity
+	var look_input: Vector2 = input * sensitivity
 	body_node.rotate_y(deg_to_rad(look_input.x))
 	roll_angle = clamp(roll_angle + deg_to_rad(look_input.y), deg_to_rad(-75), deg_to_rad(75))
-	body_node.rotation.x = roll_angle
+	neck_node.rotation.x = roll_angle
+	
+	print(look_input)
 
 static func get_component_type() -> String:
-	return "FPSLosokComponent"
+	return "FPSLookComponent"

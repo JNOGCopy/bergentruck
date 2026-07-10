@@ -10,7 +10,7 @@
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=483164373 node_paths=PackedStringArray("init_components")]
 script = ExtResource("1_nu4k2")
-init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent"), NodePath("GravityComponent")]
+init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent"), NodePath("GravityComponent"), NodePath("FPSLookComponent")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=908188241 node_paths=PackedStringArray("character_body", "rotator")]
 script = ExtResource("2_2e7x2")
@@ -29,6 +29,7 @@ metadata/_custom_type_script = "uid://d4m02eyxjwjpa"
 
 [node name="FPSLookComponent" type="Node" parent="." unique_id=1323384982 node_paths=PackedStringArray("body_node", "neck_node")]
 script = ExtResource("5_kkncw")
+sensitivity = 0.4
 body_node = NodePath("../Rotator")
 neck_node = NodePath("../Rotator/Neck/Head")
 metadata/_custom_type_script = "uid://dwnadmcgrru70"
