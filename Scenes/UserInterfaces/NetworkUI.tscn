@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cjlubbu0tc5v5"]
+
+[ext_resource type="Script" uid="uid://cowx4b7e7va18" path="res://Scripts/UserInterface/UI_Network.gd" id="1_bed6y"]
+
+[node name="NetworkUI" type="CanvasLayer" unique_id=212761361 node_paths=PackedStringArray("ip_input_field", "port_input_field", "join_server_button", "create_server_button", "host_server_button", "disconnect_server_button")]
+script = ExtResource("1_bed6y")
+ip_input_field = NodePath("UI/VBoxContainer/Ip")
+port_input_field = NodePath("UI/VBoxContainer/Port")
+join_server_button = NodePath("UI/VBoxContainer/Join")
+create_server_button = NodePath("UI/VBoxContainer/Create")
+host_server_button = NodePath("UI/VBoxContainer/Host")
+disconnect_server_button = NodePath("UI/VBoxContainer/Host2")
+
+[node name="UI" type="Control" parent="." unique_id=1818270086]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=559342852]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+offset_transform_enabled = true
+
+[node name="Ip" type="LineEdit" parent="UI/VBoxContainer" unique_id=380111759]
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "IP"
+
+[node name="Port" type="LineEdit" parent="UI/VBoxContainer" unique_id=417846902]
+layout_mode = 2
+text = "25565"
+placeholder_text = "PORT"
+
+[node name="Join" type="Button" parent="UI/VBoxContainer" unique_id=943519280]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Join"
+
+[node name="Create" type="Button" parent="UI/VBoxContainer" unique_id=571540163]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create"
+
+[node name="Host" type="Button" parent="UI/VBoxContainer" unique_id=292694185]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Host"
+
+[node name="Host2" type="Button" parent="UI/VBoxContainer" unique_id=1427764913]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Disconnect"

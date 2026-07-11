@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://y1f4k8dgsqpr"]
+
+[ext_resource type="Script" uid="uid://ql41gnlrsx40" path="res://Scripts/Managers/NetworkManager.gd" id="1_1og0m"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1og0m"]
+properties/0/path = NodePath(".:clients_list")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="GlobalNetworkManager" type="Node" unique_id=891041139]
+script = ExtResource("1_1og0m")
+metadata/_custom_type_script = "uid://ql41gnlrsx40"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1510249374]
+replication_config = SubResource("SceneReplicationConfig_1og0m")
