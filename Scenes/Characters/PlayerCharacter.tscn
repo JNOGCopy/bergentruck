@@ -5,12 +5,18 @@
 [ext_resource type="Script" uid="uid://bh47dqnbl7x1r" path="res://Scripts/Components/PlayerComponent.gd" id="3_lp3jq"]
 [ext_resource type="Script" uid="uid://d4m02eyxjwjpa" path="res://Scripts/Components/GravityComponent.gd" id="4_ci7sc"]
 [ext_resource type="Script" uid="uid://dwnadmcgrru70" path="res://Scripts/Components/FPSLookComponent.gd" id="5_kkncw"]
+[ext_resource type="Script" uid="uid://bmcxhn4blox0j" path="res://Scripts/Components/NetworkComponent.gd" id="6_8cky6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_javbu"]
+properties/0/path = NodePath(".:client_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eoubu"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=483164373 node_paths=PackedStringArray("init_components")]
 script = ExtResource("1_nu4k2")
-init_components = [NodePath("MovementComponent"), NodePath("PlayerComponent"), NodePath("GravityComponent"), NodePath("FPSLookComponent")]
+init_components = [NodePath("PlayerComponent"), NodePath("MovementComponent"), NodePath("GravityComponent"), NodePath("FPSLookComponent"), NodePath("NetworkComponent")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=908188241 node_paths=PackedStringArray("character_body", "rotator")]
 script = ExtResource("2_2e7x2")
@@ -33,6 +39,14 @@ sensitivity = 0.4
 body_node = NodePath("../Rotator")
 neck_node = NodePath("../Rotator/Neck/Head")
 metadata/_custom_type_script = "uid://dwnadmcgrru70"
+
+[node name="NetworkComponent" type="Node" parent="." unique_id=1105214318 node_paths=PackedStringArray("multiplayer_syncronizer")]
+script = ExtResource("6_8cky6")
+multiplayer_syncronizer = NodePath("MultiplayerSynchronizer")
+metadata/_custom_type_script = "uid://bmcxhn4blox0j"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent" unique_id=603063525]
+replication_config = SubResource("SceneReplicationConfig_javbu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1231854503]
 shape = SubResource("CapsuleShape3D_eoubu")

@@ -1,7 +1,7 @@
 class_name Actor
 extends Node
 
-const COMPONENTS_PATH: String = "ActorComponents"
+const COMPONENTS_PATH: String = "COMPONENTS"
 var component_path_node: Node
 
 @export var init_components: Array[BaseComponent]
