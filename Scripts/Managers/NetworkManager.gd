@@ -51,14 +51,16 @@ func is_connected_to_server() -> bool:
 	return not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer)
 
 func on_connected_to_server() -> void:
+	print("You joined lol")
+	#if not multiplayer.is_server(): clients_list.append(multiplayer.get_unique_id())
 	connected_to_server.emit()
 func on_disconnected_from_server() -> void:
 	disconnected_from_server.emit()
 	clients_list = []
 
 func on_client_connected(client_id: int) -> void:
-	clients_list.append(client_id)
+	if multiplayer.is_server(): clients_list.append(client_id)
 	client_connected.emit(client_id)
 func on_client_disconnected(client_id: int) -> void:
-	clients_list.erase(client_id)
+	if multiplayer.is_server(): clients_list.erase(client_id)
 	client_disconnected.emit(client_id)
