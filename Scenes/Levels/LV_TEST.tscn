@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cjbadperab41q"]
 
 [ext_resource type="PackedScene" uid="uid://cfogxd6tvh2jh" path="res://Scenes/Characters/PlayerCharacter.tscn" id="1_doero"]
+[ext_resource type="PackedScene" uid="uid://cjlubbu0tc5v5" path="res://Scenes/UserInterfaces/NetworkUI.tscn" id="1_uf8oy"]
 [ext_resource type="Texture2D" uid="uid://csrdp84jufc5g" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_pujw3"]
+[ext_resource type="Script" uid="uid://ddq8bnmnok5pf" path="res://Scripts/UserInterface/UI_PlayerList.gd" id="2_wam2h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uf8oy"]
 albedo_texture = ExtResource("2_pujw3")
@@ -11,6 +13,15 @@ uv1_world_triplanar = true
 [sub_resource type="BoxMesh" id="BoxMesh_eoubu"]
 
 [node name="LvTest" type="Node3D" unique_id=1073166183]
+
+[node name="NetworkUI" parent="." unique_id=212761361 instance=ExtResource("1_uf8oy")]
+
+[node name="ItemList" type="ItemList" parent="NetworkUI" unique_id=185336752]
+offset_left = 601.0
+offset_top = 12.0
+offset_right = 978.0
+offset_bottom = 226.0
+script = ExtResource("2_wam2h")
 
 [node name="PlayerCharacter" parent="." unique_id=483164373 instance=ExtResource("1_doero")]
 
