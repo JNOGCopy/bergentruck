@@ -28,7 +28,7 @@ func join_server(ip: String, port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
 	if peer.create_client(ip, port): return false
 	multiplayer.multiplayer_peer = peer
-	print("join server")
+	print("(CLIENT: %s) 🛜: Joining the server... (IP: %s, Port: %s)" % [str(GLOBAL_NetworkManager.get_client_id()), ip, str(port)])
 	return true
 func create_server(port: int) -> bool:
 	if is_connected_to_server(): return false
@@ -36,34 +36,43 @@ func create_server(port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
 	if peer.create_server(port): return false
 	multiplayer.multiplayer_peer = peer
-	print("create server")
+	print("(CLIENT: %s) 🛜: Have just created the server (Port: %s)" % [str(GLOBAL_NetworkManager.get_client_id()), str(port)])
 	return true
 func host_server(port: int) -> bool:
 	if not create_server(port): return false
 	multiplayer.connected_to_server.emit()
 	multiplayer.peer_connected.emit(multiplayer.get_unique_id())
+	print("(CLIENT: %s) 🛜: Have just hosted the server (Port: %s)" % [str(GLOBAL_NetworkManager.get_client_id()), str(port)])
 	return true
 
 func disconnect_from_server() -> void:
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	on_disconnected_from_server()
+	print("(CLIENT: %s) 🛜: Have just left the server" % [str(GLOBAL_NetworkManager.get_client_id())])
 	
 func is_connected_to_server() -> bool:
 	return not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer)
 func is_server() -> bool:
 	return multiplayer.is_server()
 
+func get_client_id() -> int:
+	return multiplayer.get_unique_id()
+
 func on_connected_to_server() -> void:
-	print("You joined lol")
-	#if not multiplayer.is_server(): clients_list.append(multiplayer.get_unique_id())
 	connected_to_server.emit()
+	print("(CLIENT: %s) 🛜: Have just joined the server" % [str(GLOBAL_NetworkManager.get_client_id())])
 func on_disconnected_from_server() -> void:
 	disconnected_from_server.emit()
 	clients_list = []
+	print("(CLIENT: %s) 🛜: Have just disconnected the server" % [str(GLOBAL_NetworkManager.get_client_id())])
 
 func on_client_connected(client_id: int) -> void:
 	if multiplayer.is_server(): clients_list.append(client_id)
 	client_connected.emit(client_id)
+	
+	print("(CLIENT: %s) 🛜: Client has just joined %s" % [str(GLOBAL_NetworkManager.get_client_id()), str(client_id)])
 func on_client_disconnected(client_id: int) -> void:
 	if multiplayer.is_server(): clients_list.erase(client_id)
 	client_disconnected.emit(client_id)
+	
+	print("(CLIENT: %s) 🛜: Client has just left %s" % [str(GLOBAL_NetworkManager.get_client_id()), str(client_id)])

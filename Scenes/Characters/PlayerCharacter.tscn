@@ -13,6 +13,11 @@ properties/0/path = NodePath(".:current_movement_velocity")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v2mgp"]
+properties/0/path = NodePath(".:gravity_velocity")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_javbu"]
 properties/0/path = NodePath(".:client_id")
 properties/0/spawn = true
@@ -56,6 +61,10 @@ script = ExtResource("4_ci7sc")
 character_body = NodePath("..")
 metadata/_custom_type_script = "uid://d4m02eyxjwjpa"
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="GravityComponent" unique_id=1858336980]
+replication_interval = 0.1
+replication_config = SubResource("SceneReplicationConfig_v2mgp")
+
 [node name="FPSLookComponent" type="Node" parent="." unique_id=1323384982 node_paths=PackedStringArray("body_node", "neck_node")]
 script = ExtResource("5_kkncw")
 sensitivity = 0.4
@@ -77,7 +86,7 @@ target_node = NodePath("..")
 metadata/_custom_type_script = "uid://b5sps070qnt5q"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="POSITION_NetworkTransformComponent" unique_id=302958008]
-replication_interval = 0.1
+replication_interval = 0.01
 replication_config = SubResource("SceneReplicationConfig_4t8qp")
 
 [node name="ROTATION_NetworkTransformComponent" type="Node" parent="." unique_id=2034074945 node_paths=PackedStringArray("target_node")]
@@ -86,7 +95,7 @@ target_node = NodePath("../Rotator")
 metadata/_custom_type_script = "uid://b5sps070qnt5q"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="ROTATION_NetworkTransformComponent" unique_id=676604937]
-replication_interval = 0.1
+replication_interval = 0.01
 replication_config = SubResource("SceneReplicationConfig_8kqif")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1231854503]

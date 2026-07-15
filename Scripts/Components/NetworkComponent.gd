@@ -15,7 +15,8 @@ func _ready() -> void:
 
 func get_client_id() -> int: return client_id
 func set_client_id(id: int) -> void: 
-	print("Setted client id " + str(id))
+	print("🛜: ClientID is has just been changed from %s to %s in the component %s" % [str(client_id), str(id), get_path()])
+	
 	_client_id = id
 	client_id_changed.emit(id)
 

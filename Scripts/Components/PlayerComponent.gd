@@ -27,15 +27,11 @@ static func get_component_type() -> String:
 	return "PlayerComponent"
 
 func on_client_id_changed(client_id: int):
-	print("Client_id")
 	if not network_component.is_local_client():
-		print(str(network_component.client_id) + " " + str(multiplayer.get_unique_id()))
 		for i in client_side_nodes:
 			i.hide()
 		camera.current = false
-		print("Hide")
 	else:
 		for i in client_side_nodes:
 			i.show()
 		camera.current = true
-		print("Show")

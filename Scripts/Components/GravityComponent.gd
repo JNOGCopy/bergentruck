@@ -22,14 +22,20 @@ func update(delta: float) -> void:
 
 func jump():
 	if not network_component.is_local_client(): return
-	if network_component.is_server(): _apply_jump()
+	if network_component.is_server(): SERVER_RPC__request_jump()
 	else: 
 		_apply_jump()
-		CLIENT_RPC__request_jump.rpc_id(1)
+		SERVER_RPC__request_jump.rpc_id(1)
 
 @rpc("any_peer", "call_remote", "unreliable")
-func CLIENT_RPC__request_jump() -> void:
+func SERVER_RPC__request_jump() -> void:
 	if not network_component.is_server(): return
+	_apply_jump()
+	CLIENT_RPC__apply_jump.rpc()
+
+@rpc("any_peer", "call_remote", "unreliable")
+func CLIENT_RPC__apply_jump() -> void:
+	if multiplayer.get_remote_sender_id() != 1: return
 	_apply_jump()
 
 func _apply_jump():

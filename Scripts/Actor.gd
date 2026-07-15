@@ -20,7 +20,6 @@ func _ready() -> void:
 	if not component_path_node:
 		component_path_node = Node.new()
 		self.add_child(component_path_node)
-	print(component_path_node.get_path())
 	
 	for i in init_components:
 		add_component(i)

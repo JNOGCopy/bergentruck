@@ -17,14 +17,11 @@ func spawn_scene(scene: PackedScene, client_id: int) -> Node:
 	if node is Actor:
 		if node.has_component(NetworkComponent.get_component_type()):
 			(node.get_component(NetworkComponent.get_component_type()) as NetworkComponent).set_client_id(client_id)
-			print("setted")
-			
-			if multiplayer.is_server():
-				print("rearadsfasdfds")
-			
+			print("🛜: Node has just spawned, it's ClientID owner is %s and it was setted with the component NetworkComponent" % [client_id])
 			return node
 	
 	node.set_multiplayer_authority(client_id)
+	print("🛜: Node has just spawned, it's ClientID owner is %s and it was setted with Godot's built in multiplayer because is not a Actor or NetworkComponent is missing" % [client_id])
 	return node
 
 func on_client_disconnected(client_id: int):
@@ -39,10 +36,11 @@ func on_client_disconnected(client_id: int):
 			if network_component != null:
 				if network_component.get_client_id() == client_id:
 					i.call_deferred("queue_free")
+					print("🛜: Node %s that owns %s has just been deleted" % [i.name, client_id])
 					break
-		
 		if i.get_multiplayer_authority() == client_id:
 			i.call_deferred("queue_free")
+			print("🛜: Node %s that owns %s has just been deleted" % [i.name, str(client_id)])
 
 func on_disconnected_from_server() -> void:
 	var spawn_node := get_node(multiplayer_spawner.spawn_path)
@@ -50,6 +48,8 @@ func on_disconnected_from_server() -> void:
 	
 	for i in children:
 		i.call_deferred("queue_free")
+	
+	print("🛜: All network nodes were destroyed because player has just leave the server")
 
 static func get_component_type() -> String:
 	return "NetworkSpawnerComponent"
