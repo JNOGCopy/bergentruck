@@ -70,6 +70,10 @@ func remove_component(component: BaseComponent) -> void:
 	var component_type_list: Array = components_dictionary.get(component.get_component_type())
 	component_type_list.erase(component)
 
-func has_component(type: String):
-	var component_type_list: Array = components_dictionary.get(type)
-	if component_type_list == null: return
+func has_component(type: String) -> bool:
+	if components_dictionary.has(type): 
+		var component_type_list: Array = components_dictionary.get(type)
+		if component_type_list.size() > 0: return true
+	
+	for i in components_list: if i.is_class(type): return true
+	return false

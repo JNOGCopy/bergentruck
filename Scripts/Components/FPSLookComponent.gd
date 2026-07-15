@@ -16,7 +16,9 @@ func look(input: Vector2) -> void:
 	if not network_component.is_local_client(): return
 	
 	if network_component.is_server(): apply_look(input)
-	else: CLIENT_RPC__request_look.rpc_id(1, input)
+	else:
+		apply_look(input) 
+		CLIENT_RPC__request_look.rpc_id(1, input)
 
 @rpc("any_peer", "call_remote", "unreliable")
 func CLIENT_RPC__request_look(input: Vector2) -> void:

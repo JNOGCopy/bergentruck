@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cjlubbu0tc5v5" path="res://Scenes/UserInterfaces/NetworkUI.tscn" id="1_uf8oy"]
 [ext_resource type="Texture2D" uid="uid://csrdp84jufc5g" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_pujw3"]
 [ext_resource type="Script" uid="uid://ddq8bnmnok5pf" path="res://Scripts/UserInterface/UI_PlayerList.gd" id="2_wam2h"]
+[ext_resource type="Script" uid="uid://benmqk7fqmiro" path="res://Scripts/Actor.gd" id="4_8vahm"]
+[ext_resource type="Script" uid="uid://cwnkubvvcvahu" path="res://Scripts/Components/PlayerSpawnerComponent.gd" id="5_8x0ia"]
+[ext_resource type="Script" uid="uid://c376efcrbs5d4" path="res://Scripts/Components/NetworkSpawnerComponent.gd" id="6_jqhqp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uf8oy"]
 albedo_texture = ExtResource("2_pujw3")
@@ -23,10 +26,31 @@ offset_right = 978.0
 offset_bottom = 226.0
 script = ExtResource("2_wam2h")
 
-[node name="PlayerCharacter" parent="." unique_id=483164373 instance=ExtResource("1_doero")]
-
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=854121376]
 transform = Transform3D(40, 0, 0, 0, 0.25, 0, 0, 0, 40, 0, -1.7617626, 0)
 material_override = SubResource("StandardMaterial3D_uf8oy")
 use_collision = true
 mesh = SubResource("BoxMesh_eoubu")
+
+[node name="Spawner" type="Node" parent="." unique_id=123651308 node_paths=PackedStringArray("init_components")]
+script = ExtResource("4_8vahm")
+init_components = [NodePath("PlayerSpawnerComponent"), NodePath("NetworkSpawnerComponent")]
+metadata/_custom_type_script = "uid://benmqk7fqmiro"
+
+[node name="PlayerSpawnerComponent" type="Node" parent="Spawner" unique_id=776140398]
+script = ExtResource("5_8x0ia")
+default_player = ExtResource("1_doero")
+metadata/_custom_type_script = "uid://cwnkubvvcvahu"
+
+[node name="NetworkSpawnerComponent" type="Node" parent="Spawner" unique_id=2029794534 node_paths=PackedStringArray("multiplayer_spawner", "players_node_parent")]
+script = ExtResource("6_jqhqp")
+multiplayer_spawner = NodePath("../MultiplayerSpawner")
+players_node_parent = NodePath("../Players")
+metadata/_custom_type_script = "uid://c376efcrbs5d4"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Spawner" unique_id=1568791605]
+_spawnable_scenes = PackedStringArray("uid://cfogxd6tvh2jh")
+spawn_path = NodePath("../Players")
+
+[node name="Players" type="Node3D" parent="Spawner" unique_id=1790544000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8152025, 0)

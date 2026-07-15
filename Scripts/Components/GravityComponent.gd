@@ -23,7 +23,9 @@ func update(delta: float) -> void:
 func jump():
 	if not network_component.is_local_client(): return
 	if network_component.is_server(): _apply_jump()
-	else: CLIENT_RPC__request_jump.rpc_id(1)
+	else: 
+		_apply_jump()
+		CLIENT_RPC__request_jump.rpc_id(1)
 
 @rpc("any_peer", "call_remote", "unreliable")
 func CLIENT_RPC__request_jump() -> void:

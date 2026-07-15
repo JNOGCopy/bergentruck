@@ -27,7 +27,9 @@ func physics_update(delta: float) -> void:
 func move(input: Vector2):
 	if not network_component.is_local_client(): return
 	if network_component.is_server(): _apply_movement(input)
-	else: CLIENT_RPC__request_jump.rpc_id(1, input)
+	else: 
+		_apply_movement(input)
+		CLIENT_RPC__request_jump.rpc_id(1, input)
 
 @rpc("any_peer", "call_remote", "unreliable")
 func CLIENT_RPC__request_jump(input: Vector2) -> void:

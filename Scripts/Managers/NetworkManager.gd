@@ -47,8 +47,11 @@ func host_server(port: int) -> bool:
 func disconnect_from_server() -> void:
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	on_disconnected_from_server()
+	
 func is_connected_to_server() -> bool:
 	return not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer)
+func is_server() -> bool:
+	return multiplayer.is_server()
 
 func on_connected_to_server() -> void:
 	print("You joined lol")
