@@ -27,8 +27,7 @@ func spawn_scene(scene: PackedScene, client_id: int) -> Node:
 func on_client_disconnected(client_id: int):
 	if not GLOBAL_NetworkManager.is_server(): return
 	
-	var spawn_node := get_node(multiplayer_spawner.spawn_path)
-	var children := spawn_node.get_children()
+	var children := players_node_parent.get_children()
 	
 	for i in children:
 		if i is Actor:
@@ -43,8 +42,7 @@ func on_client_disconnected(client_id: int):
 			print("🛜: Node %s that owns %s has just been deleted" % [i.name, str(client_id)])
 
 func on_disconnected_from_server() -> void:
-	var spawn_node := get_node(multiplayer_spawner.spawn_path)
-	var children := spawn_node.get_children()
+	var children := players_node_parent.get_children()
 	
 	for i in children:
 		i.call_deferred("queue_free")

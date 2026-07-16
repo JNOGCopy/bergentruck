@@ -46,16 +46,20 @@ func host_server(port: int) -> bool:
 	return true
 
 func disconnect_from_server() -> void:
+	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	on_disconnected_from_server()
 	print("(CLIENT: %s) 🛜: Have just left the server" % [str(GLOBAL_NetworkManager.get_client_id())])
 	
 func is_connected_to_server() -> bool:
+	if multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED: return false
 	return not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer)
 func is_server() -> bool:
+	if multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED: return true
 	return multiplayer.is_server()
 
 func get_client_id() -> int:
+	if multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED: return 1
 	return multiplayer.get_unique_id()
 
 func on_connected_to_server() -> void:

@@ -21,8 +21,8 @@ func set_client_id(id: int) -> void:
 	client_id_changed.emit(id)
 
 func is_local_client() -> bool: 
-	return client_id == multiplayer.get_unique_id()
-func is_server() -> bool: return multiplayer.is_server()
+	return client_id == GLOBAL_NetworkManager.get_client_id()
+func is_server() -> bool: return GLOBAL_NetworkManager.is_server()
 
 static func get_component_type() -> String:
 	return "NetworkComponent"

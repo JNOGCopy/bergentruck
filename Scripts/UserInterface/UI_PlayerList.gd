@@ -22,4 +22,4 @@ func on_client_disconnected(client_id: int) -> void:
 func reload_list() -> void:
 	clear()
 	for i in GLOBAL_NetworkManager.clients_list:
-		add_item(("YOU: " if multiplayer.get_unique_id() == i else "") + str(i))
+		add_item(("YOU: " if GLOBAL_NetworkManager.get_client_id() == i else "") + str(i))
