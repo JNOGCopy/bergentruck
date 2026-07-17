@@ -12,6 +12,10 @@ var current_movement_velocity: Vector3 = Vector3.ZERO
 
 var network_component: NetworkComponent
 
+class ClientMovementData:
+	var tick: int
+	var position: Vector3
+
 func ready() -> void:
 	network_component = actor_owner.get_component(NetworkComponent.get_component_type())
 
